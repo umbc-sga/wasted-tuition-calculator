@@ -28,7 +28,7 @@
         <div class="container mt-3">
             <h3 class="text-center">Wasted Tuition Calculator</h3>
 
-            <h5>How many credits is the class?</h5>
+            <h5 class="mt-3">How many credits is the class?</h5>
             <input id="numCredits" type="number" min="0" class="styledInput form-control" style="width: 50%">
 
             <h5 class="mt-3">How many times a week does this class meet?</h5>
@@ -38,8 +38,8 @@
             <input id="numSkips" type="number" min="0" class="styledInput form-control">
 
             <p id="info" class="mt-3 font-weight-bold">
-                Assuming a {{SEMESTER_LENGTH}} week semester, and a per credit cost of ${{COST_PER_CREDIT}}.
-                You would lose:
+                Assuming a {{SEMESTER_LENGTH}} week semester, and a per credit cost of ${{COST_PER_CREDIT}},
+                you would lose:
             </p>
 
             <h1 class="display-1 mt-3" id="moneyLost">$0.00</h1>
@@ -88,6 +88,10 @@
 
                 // calculate money lost by ratio of number of skipped class to actual classes could attend
                 let moneyLost = totalClassValue * (numSkips / totalNumClassMeetings);
+
+                // do not allow user go to above the total number of class meetings
+                if (!isNaN(totalNumClassMeetings))
+                    document.getElementById("numSkips").max = totalNumClassMeetings;
 
                 // if the number calc is valid, positive, and less or eq to total class value
                 if (!isNaN(moneyLost) && moneyLost >= 0 && moneyLost <= totalClassValue)
