@@ -1,0 +1,95 @@
+<html>
+    <head>
+        <title>Wasted Tution Calculator</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <style>
+            html {  position: relative; min-height: 100%; }
+            body { margin-bottom: 60px; }
+
+            .styledInput { font-size: 2em; width: 25%; text-align: center; }
+
+            #moneyLost::before { content: "-"; }
+            #moneyLost { color: red; text-align: center; }
+
+            .footer {
+                position: absolute;
+                bottom: 0;
+                width: 100%;
+                height: 60px;
+                line-height: 60px;
+                background-color: #f5f5f5;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="container mt-3">
+            <h3 class="text-center">Wasted Tuition Calculator</h3>
+
+            <h5>How many credits is the class?</h5>
+            <input id="numCredits" type="number" class="styledInput form-control" style="width: 50%">
+
+            <h5>How many times a week does this class meet?</h5>
+            <input id="numClassMeetings" type="number" class="styledInput form-control" style="width: 50%">
+
+            <h5 class="mt-3">How many times are you gonna skip it?</h5>
+            <input id="numSkips" type="number" class="styledInput form-control">
+
+            <p id="info" class="mt-3 font-weight-bold">
+                Assuming a {{SEMESTER_LENGTH}} week semester, and a per credit cost of ${{COST_PER_CREDIT}}.
+                <a target="_blank" href="">Source</a>
+            </p>
+
+            <h1 class="display-1 mt-5" id="moneyLost">$0.00</h1>
+        </div>
+
+        <footer class="footer mt-3">
+                <div class="container-fluid">
+                    <span class="text-muted">
+                        Data from <a target="_blank" href="https://sbs.umbc.edu/tuition-info/">UMBC Student Business Services</a>.
+                    </span>
+                </div>
+            </footer>
+
+        <!-- Bootstrap Script Imports -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        <script>
+            // Constants that can be changed every year
+            const UMBC_TUITION = 4352;
+            const SEMESTER_LENGTH = 16;
+            const COST_PER_CREDIT = 361;
+
+            let info = document.getElementById("info");
+
+            info.innerHTML = info.innerHTML.replace("{{SEMESTER_LENGTH}}", SEMESTER_LENGTH);
+            info.innerHTML = info.innerHTML.replace("{{COST_PER_CREDIT}}", COST_PER_CREDIT);
+
+            // Update the money lost value whenever something is changed
+            document.getElementById("numCredits").addEventListener("input", calculateLoss);
+            document.getElementById("numClassMeetings").addEventListener("input", calculateLoss);
+            document.getElementById("numSkips").addEventListener("input", calculateLoss);
+
+            /**
+             * Calculate how much money would be lost if you skipped class.
+             */
+            function calculateLoss() {
+                let numCredits = document.getElementById("numCredits").value;
+                let numClassMeetings = document.getElementById("numClassMeetings").value;
+                let numSkips = document.getElementById("numSkips").value;
+
+                let totalClassValue = numCredits * COST_PER_CREDIT
+                let totalNumClassMeetings = SEMESTER_LENGTH * numClassMeetings;
+
+                let moneyLost = totalClassValue * (numSkips / totalNumClassMeetings);
+
+                if (moneyLost)
+                    document.getElementById("moneyLost").innerHTML = moneyLost.toLocaleString(undefined, { style: 'currency',minimumFractionDigits: 2, maximumFractionDigits: 2, currency: 'USD' });
+            }
+        </script>
+    </body>
+</html>
