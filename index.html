@@ -90,7 +90,7 @@
                 let moneyLost = totalClassValue * (numSkips / totalNumClassMeetings);
 
                 // if the number calc is valid, positive, and less or eq to total class value
-                if (!isNaN(moneyLost) && moneyLost > 0 && moneyLost <= totalClassValue)
+                if (!isNaN(moneyLost) && moneyLost >= 0 && moneyLost <= totalClassValue)
                     document.getElementById("moneyLost").innerHTML = moneyLost.toLocaleString(undefined, { style: 'currency',minimumFractionDigits: 2, maximumFractionDigits: 2, currency: 'USD' });
             }
         </script>
