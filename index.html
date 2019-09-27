@@ -108,20 +108,24 @@
                     document.getElementById("moneyLost").innerHTML = moneyLost.toLocaleString(undefined, { style: 'currency',minimumFractionDigits: 2, maximumFractionDigits: 2, currency: 'USD' });
                 }
 
+                // if the number calc is valid, positive, and less or eq to total class value
                 if (!isNaN(moneyLost) && moneyLost >= 0 && moneyLost <= totalClassValue) {
+                    // add money lost to total money lost to keep track of it
                     totalMoneyLost += moneyLost;
 
+                    // show the running total list
                     document.getElementById("runningTotal").style.display = "";
 
+                    // format total money lost and show it
                     document.getElementById("totalMoneyLost").innerHTML = totalMoneyLost.toLocaleString(undefined, { style: 'currency',minimumFractionDigits: 2, maximumFractionDigits: 2, currency: 'USD' });
 
-                    let runningTotalList = document.getElementById("runningTotalList");
-
+                    // create a list item to show the class loss
                     let el = document.createElement("LI");
                     el.className = "list-group-item";
                     el.innerHTML = className + ": -" + moneyLost.toLocaleString(undefined, { style: 'currency',minimumFractionDigits: 2, maximumFractionDigits: 2, currency: 'USD' });
 
-                    runningTotalList.append(el);
+                    // add class lost li to list
+                    document.getElementById("runningTotalList").append(el);
                 }
             }
 
