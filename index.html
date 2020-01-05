@@ -11,7 +11,7 @@
 
             .styledInput { font-size: 1em; width: 25%; text-align: center; }
 
-            #moneyLost { color: red; text-align: center; }
+            #tuitionLost, #feesLost { color: red; text-align: center; }
 
             .footer {
                 position: absolute;
@@ -26,32 +26,95 @@
 
     <body>
         <div class="container mt-3">
-            <h3 class="text-center">Wasted Tuition Calculator</h3>
+            <div class="row">
+                <div class="col">
+                    <h3 class="text-center">Wasted Tuition Calculator</h3>
 
-            <h5 class="mt-3">What is the name of the class?</h5>
-            <input id="className" type="text" class="styledInput form-control" style="width: 50%">
+                    <h5 class="mt-3">What is the name of the class?</h5>
+                    <input id="className" type="text" class="styledInput form-control" style="width: 50%">
 
-            <h5 class="mt-3">How many credits is the class?</h5>
-            <input id="numCredits" type="number" min="0" class="styledInput form-control" style="width: 50%">
+                    <h5 class="mt-3">How many credits is the class?</h5>
+                    <input id="numCredits" type="number" min="0" class="styledInput form-control" style="width: 50%">
 
-            <h5 class="mt-3">How many times a week does this class meet?</h5>
-            <input id="numClassMeetings" type="number" min="0" class="styledInput form-control" style="width: 50%">
+                    <h5 class="mt-3">How many times a week does this class meet?</h5>
+                    <input id="numClassMeetings" type="number" min="0" class="styledInput form-control" style="width: 50%">
 
-            <h5 class="mt-3">How many times are you gonna skip it?</h5>
-            <input id="numSkips" type="number" min="0" class="styledInput form-control">
+                    <h5 class="mt-3">How many times will you have missed it?</h5>
+                    <input id="numSkips" type="number" min="0" class="styledInput form-control">
 
-            <button class="btn btn-primary mt-3" onclick="addToRunningTotal()">Add to Running Total</button>
+                    <button class="btn btn-primary mt-3" onclick="addToRunningTotal()">Add to Running Total</button>
 
-            <p id="info" class="mt-3 font-weight-bold">
-                Assuming a {{SEMESTER_LENGTH}} week semester, and a per credit cost of ${{COST_PER_CREDIT}},
-                you would lose:
-            </p>
+                    <p id="info" class="mt-3 font-weight-bold">
+                        Assuming a {{SEMESTER_LENGTH}} week semester, and a per credit cost of ${{COST_PER_CREDIT}},
+                        you would lose:
+                    </p>
 
-            <h1 class="display-1 mt-3" id="moneyLost">$0.00</h1>
+                    <h1 class="display-1 mt-3" id="tuitionLost">$0.00</h1>
 
-            <div id="runningTotal" class="mt-3 pb-3" style="display: none;">
-                <h3>Running Total: <span id="totalMoneyLost"></span></h3>
-                <ul id="runningTotalList" class="list-group"></ul>
+                    <div id="runningTotal" class="mt-3 pb-3" style="display: none;">
+                        <h3>Running Total: <span id="totalMoneyLost"></span></h3>
+                        <ul id="runningTotalList" class="list-group"></ul>
+                    </div>
+                </div>
+
+                <!-- <div class="col">
+                    <h3 class="text-center">Wasted Fee Calculator</h3>
+
+                    <h5 class="mt-3">Do you use the RAC?</h5>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="racUsage" id="inlineRadio1" value="Yes">
+                        <label class="form-check-label" for="inlineRadio1">Yes</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="racUsage" id="inlineRadio2" value="No">
+                        <label class="form-check-label" for="inlineRadio2">No</label>
+                    </div>
+
+                    <h5 class="mt-3">Do you attend UMBC sports games?</h5>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="athleticsAttendance" id="inlineRadio3" value="Yes">
+                        <label class="form-check-label" for="inlineRadio3">Yes</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="athleticsAttendance" id="inlineRadio4" value="No">
+                        <label class="form-check-label" for="inlineRadio4">No</label>
+                    </div>
+
+                    <h5 class="mt-3">Do you use the UMBC Transit System?</h5>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="transitUsage" id="inlineRadio5" value="Yes">
+                        <label class="form-check-label" for="inlineRadio5">Yes</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="transitUsage" id="inlineRadio6" value="No">
+                        <label class="form-check-label" for="inlineRadio6">No</label>
+                    </div>
+
+                    <h5 class="mt-3">Do you park a car on campus?</h5>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="parkingPermitUsage" id="inlineRadio7" value="Yes">
+                        <label class="form-check-label" for="inlineRadio7">Yes</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="parkingPermitUsage" id="inlineRadio8" value="No">
+                        <label class="form-check-label" for="inlineRadio8">No</label>
+                    </div>
+
+                    <h5 class="mt-3">Do you attend Student Org events?</h5>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="studentOrgEngagement" id="inlineRadio9" value="Yes">
+                        <label class="form-check-label" for="inlineRadio9">Yes</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="studentOrgEngagement" id="inlineRadio10" value="No">
+                        <label class="form-check-label" for="inlineRadio10">No</label>
+                    </div>
+
+                    <p class="mt-3 font-weight-bold">
+                        Based on 2018 Fee Figures, you will lose:
+                    </p>
+                    <h1 id="feesLost" class="display-1 mt-3">$0.00</h1>
+                </div> -->
             </div>
         </div>
 
@@ -67,93 +130,6 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-        <script>
-            // Constants that can be changed every year
-            const UMBC_TUITION = 4352;
-            const SEMESTER_LENGTH = 16;
-            const COST_PER_CREDIT = 361;
-
-            let totalMoneyLost = 0;
-
-            // update information disclosure with up to date stuff
-            let info = document.getElementById("info");
-            info.innerHTML = info.innerHTML.replace("{{SEMESTER_LENGTH}}", SEMESTER_LENGTH);
-            info.innerHTML = info.innerHTML.replace("{{COST_PER_CREDIT}}", COST_PER_CREDIT);
-
-            // Update the money lost value whenever something is changed
-            document.getElementById("numCredits").addEventListener("input", calculateLoss);
-            document.getElementById("numClassMeetings").addEventListener("input", calculateLoss);
-            document.getElementById("numSkips").addEventListener("input", calculateLoss);
-
-            function addToRunningTotal() {
-                // get input values
-                let className = document.getElementById("className").value;
-                let numCredits = document.getElementById("numCredits").value;
-                let numClassMeetings = document.getElementById("numClassMeetings").value;
-                let numSkips = document.getElementById("numSkips").value;
-
-                // calculate some stuff
-                let totalClassValue = numCredits * COST_PER_CREDIT
-                let totalNumClassMeetings = SEMESTER_LENGTH * numClassMeetings;
-
-                // calculate money lost by ratio of number of skipped class to actual classes could attend
-                let moneyLost = totalClassValue * (numSkips / totalNumClassMeetings);
-
-                // do not allow user go to above the total number of class meetings
-                if (!isNaN(totalNumClassMeetings))
-                    document.getElementById("numSkips").max = totalNumClassMeetings;
-
-                // if the number calc is valid, positive, and less or eq to total class value
-                if (!isNaN(moneyLost) && moneyLost >= 0 && moneyLost <= totalClassValue) {
-                    document.getElementById("moneyLost").innerHTML = moneyLost.toLocaleString(undefined, { style: 'currency',minimumFractionDigits: 2, maximumFractionDigits: 2, currency: 'USD' });
-                }
-
-                // if the number calc is valid, positive, and less or eq to total class value
-                if (!isNaN(moneyLost) && moneyLost >= 0 && moneyLost <= totalClassValue) {
-                    // add money lost to total money lost to keep track of it
-                    totalMoneyLost += moneyLost;
-
-                    // show the running total list
-                    document.getElementById("runningTotal").style.display = "";
-
-                    // format total money lost and show it
-                    document.getElementById("totalMoneyLost").innerHTML = totalMoneyLost.toLocaleString(undefined, { style: 'currency',minimumFractionDigits: 2, maximumFractionDigits: 2, currency: 'USD' });
-
-                    // create a list item to show the class loss
-                    let el = document.createElement("LI");
-                    el.className = "list-group-item";
-                    el.innerHTML = className + ": -" + moneyLost.toLocaleString(undefined, { style: 'currency',minimumFractionDigits: 2, maximumFractionDigits: 2, currency: 'USD' });
-
-                    // add class lost li to list
-                    document.getElementById("runningTotalList").append(el);
-                }
-            }
-
-            /**
-             * Calculate how much money would be lost if you skipped class.
-             */
-            function calculateLoss() {
-                // get input values
-                let numCredits = document.getElementById("numCredits").value;
-                let numClassMeetings = document.getElementById("numClassMeetings").value;
-                let numSkips = document.getElementById("numSkips").value;
-
-                // calculate some stuff
-                let totalClassValue = numCredits * COST_PER_CREDIT
-                let totalNumClassMeetings = SEMESTER_LENGTH * numClassMeetings;
-
-                // calculate money lost by ratio of number of skipped class to actual classes could attend
-                let moneyLost = totalClassValue * (numSkips / totalNumClassMeetings);
-
-                // do not allow user go to above the total number of class meetings
-                if (!isNaN(totalNumClassMeetings))
-                    document.getElementById("numSkips").max = totalNumClassMeetings;
-
-                // if the number calc is valid, positive, and less or eq to total class value
-                if (!isNaN(moneyLost) && moneyLost >= 0 && moneyLost <= totalClassValue) {
-                    document.getElementById("moneyLost").innerHTML = moneyLost.toLocaleString(undefined, { style: 'currency',minimumFractionDigits: 2, maximumFractionDigits: 2, currency: 'USD' });
-                }
-            }
-        </script>
+        <script src="app.js"></script>
     </body>
 </html>
